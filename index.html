@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Especial</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #003973, #00c6ff);
+        }
+
+        .container {
+            background-color: rgba(0, 0, 50, 0.8);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 320px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+        }
+
+        .botoes-area {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #btn-sim {
+            background: #00ffcc;
+            color: black;
+        }
+
+        #btn-nao {
+            background: #ff4d6d;
+            color: white;
+            position: absolute;
+        }
+
+        .sucesso {
+            display: none;
+            text-align: center;
+            color: white;
+        }
+
+        .sucesso h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 32px;
+        }
+
+        .sucesso img {
+            max-width: 280px;
+            border-radius: 15px;
+            margin-top: 15px;
+            box-shadow: 0 0 20px rgba(0,255,200,0.5);
+        }
+
+        .sucesso p {
+            font-family: 'Pacifico', cursive;
+            font-size: 22px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="pergunta-container">
+        <h1>aceita me acompanhar num encontro romantico?</h1>
+
+        <div class="botoes-area">
+            <button id="btn-sim" onclick="exibirSucesso()">claro q s linda</button>
+            <button id="btn-nao">eu recuso sua feiosa</button>
+        </div>
+    </div>
+
+    <div id="sucesso-container" class="sucesso">
+        <h1>sabia que vc iria aceitar rsrsrsrsrsrsr</h1>
+        <img id="cat-img" src="" alt="Gatinho fofo">
+        <p>GATITOOOOSSSSSS</p>
+    </div>
+
+    <script>
+        const btnNao = document.getElementById('btn-nao');
+        const container = document.getElementById('pergunta-container');
+        const sucessoContainer = document.getElementById('sucesso-container');
+        const catImg = document.getElementById('cat-img');
+
+        btnNao.addEventListener('mouseover', function () {
+            const padding = 20;
+
+            const maxX = window.innerWidth - btnNao.offsetWidth - padding;
+            const maxY = window.innerHeight - btnNao.offsetHeight - padding;
+
+            const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+
+            btnNao.style.left = randomX + 'px';
+            btnNao.style.top = randomY + 'px';
+        });
+
+        function exibirSucesso() {
+            container.style.display = 'none';
+            sucessoContainer.style.display = 'block';
+
+            // API confiável de gatos
+            fetch('https://api.thecatapi.com/v1/images/search')
+                .then(res => res.json())
+                .then(data => {
+                    catImg.src = data[0].url;
+                })
+                .catch(() => {
+                    catImg.src = "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg";
+                });
+        }
+    </script>
+
+</body>
+</html>
